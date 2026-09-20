@@ -140,8 +140,16 @@ public class MorphManager {
         registerStoneFamily(Items.POLISHED_ANDESITE, Items.POLISHED_ANDESITE_STAIRS, Items.POLISHED_ANDESITE_SLAB, null);
 
         // === PRISMARINE & OCEAN ===
-        registerStoneFamily(Items.PRISMARINE, Items.PRISMARINE_STAIRS, Items.PRISMARINE_SLAB, Items.PRISMARINE_WALL);
-        registerStoneFamily(Items.PRISMARINE_BRICKS, Items.PRISMARINE_BRICK_STAIRS, Items.PRISMARINE_BRICK_SLAB, null);
+        // Making Prismarine Shard the boss of both standard and brick variants
+        addRecipe(Items.PRISMARINE_SHARD, Items.PRISMARINE, 4, 1);
+        addRecipe(Items.PRISMARINE_SHARD, Items.PRISMARINE_STAIRS, 4, 1);
+        addRecipe(Items.PRISMARINE_SHARD, Items.PRISMARINE_SLAB, 2, 1);
+        addRecipe(Items.PRISMARINE_SHARD, Items.PRISMARINE_WALL, 4, 1);
+
+        addRecipe(Items.PRISMARINE_SHARD, Items.PRISMARINE_BRICKS, 9, 1);
+        addRecipe(Items.PRISMARINE_SHARD, Items.PRISMARINE_BRICK_STAIRS, 9, 1);
+        addRecipe(Items.PRISMARINE_SHARD, Items.PRISMARINE_BRICK_SLAB, 9, 2);
+
         registerStoneFamily(Items.DARK_PRISMARINE, Items.DARK_PRISMARINE_STAIRS, Items.DARK_PRISMARINE_SLAB, null);
 
         // === NETHER & END ===
@@ -249,6 +257,45 @@ public class MorphManager {
         addRecipe(Items.DEEPSLATE_TILES, Items.CRACKED_DEEPSLATE_TILES, 1, 1);
         addRecipe(Items.POLISHED_BLACKSTONE_BRICKS, Items.CRACKED_POLISHED_BLACKSTONE_BRICKS, 1, 1);
         addRecipe(Items.NETHER_BRICKS, Items.CRACKED_NETHER_BRICKS, 1, 1);
+
+        // === RESOURCES, CROPS & MISC ===
+        addRecipe(Items.GLASS, Items.GLASS_PANE, 3, 8);
+        addRecipe(Items.PURPUR_BLOCK, Items.POPPED_CHORUS_FRUIT, 1, 4);
+        addRecipe(Items.NETHER_BRICKS, Items.NETHER_BRICK, 1, 4); // Items.NETHER_BRICK is the item, Items.NETHER_BRICKS is the block
+        addRecipe(Items.COAL_BLOCK, Items.COAL, 1, 9);
+        addRecipe(Items.NETHER_WART_BLOCK, Items.NETHER_WART, 1, 9);
+        addRecipe(Items.BONE_BLOCK, Items.BONE_MEAL, 1, 9);
+        addRecipe(Items.MELON, Items.MELON_SLICE, 1, 9);
+        addRecipe(Items.DRIED_KELP_BLOCK, Items.DRIED_KELP, 1, 9);
+        addRecipe(Items.HAY_BLOCK, Items.WHEAT, 1, 9);
+        addRecipe(Items.AMETHYST_BLOCK, Items.AMETHYST_SHARD, 1, 4);
+        addRecipe(Items.HONEYCOMB_BLOCK, Items.HONEYCOMB, 1, 4);
+
+        // === MINERALS & SLIME (1:9) ===
+        addRecipe(Items.IRON_BLOCK, Items.IRON_INGOT, 1, 9);
+        addRecipe(Items.RAW_IRON_BLOCK, Items.RAW_IRON, 1, 9);
+        addRecipe(Items.GOLD_BLOCK, Items.GOLD_INGOT, 1, 9);
+        addRecipe(Items.RAW_GOLD_BLOCK, Items.RAW_GOLD, 1, 9);
+        addRecipe(Items.DIAMOND_BLOCK, Items.DIAMOND, 1, 9);
+        addRecipe(Items.EMERALD_BLOCK, Items.EMERALD, 1, 9);
+        addRecipe(Items.LAPIS_BLOCK, Items.LAPIS_LAZULI, 1, 9);
+        addRecipe(Items.REDSTONE_BLOCK, Items.REDSTONE, 1, 9);
+        addRecipe(Items.SLIME_BLOCK, Items.SLIME_BALL, 1, 9);
+
+        // === CLAY, SNOW & GLOWSTONE (1:4) ===
+        addRecipe(Items.CLAY, Items.CLAY_BALL, 1, 4);
+        addRecipe(Items.SNOW_BLOCK, Items.SNOWBALL, 1, 4);
+        addRecipe(Items.GLOWSTONE, Items.GLOWSTONE_DUST, 1, 4);
+        addRecipe(Items.MAGMA_BLOCK, Items.MAGMA_CREAM, 1,4);
+        addRecipe(Items.RAW_COPPER_BLOCK, Items.RAW_COPPER, 1, 9);
+        addRecipe(Items.NETHERITE_BLOCK, Items.NETHERITE_INGOT, 1, 9);
+        addRecipe(Items.BRICKS, Items.BRICK, 1, 4);
+        addRecipe(Items.PACKED_ICE, Items.ICE, 1, 9);
+        addRecipe(Items.BLUE_ICE, Items.PACKED_ICE, 1, 9);
+        addRecipe(Items.DRIPSTONE_BLOCK, Items.POINTED_DRIPSTONE, 1, 4);
+        addRecipe(Items.SULFUR, Items.SULFUR_SPIKE, 1,4);
+        addRecipe(Items.COBWEB, Items.STRING, 1, 9);
+        addRecipe(Items.BAMBOO_PLANKS, Items.BAMBOO, 2, 9);
     }
 
     // --- HELPER METHODS ---

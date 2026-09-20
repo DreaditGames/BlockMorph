@@ -1,0 +1,38 @@
+{
+	"schemaVersion": 1,
+	"id": "blockmorph",
+	"version": "1.0.0",
+	"name": "BlockMorph",
+	"description": "Clean up your inventory by seamlessly morphing between wood, stone, concrete, and wool variants.",
+	"authors": [
+		"DreaditGames"
+	],
+	"contact": {
+		"sources": "https://github.com/DreaditGames/BlockMorph",
+		"issues": "https://github.com/DreaditGames/BlockMorph/issues"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/blockmorph/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.dreadit.Blockmorph"
+		],
+		"client": [
+			"com.dreadit.client.BlockmorphClient"
+		]
+	},
+	"mixins": [
+		"blockmorph.mixins.json",
+		{
+			"config": "blockmorph.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

@@ -77,17 +77,21 @@ public class Blockmorph implements ModInitializer {
 	}
 
 	private void giveItemSafe(ServerPlayer player, ItemStack stack) {
-		if (!player.getInventory().add(stack)) {
+		while (!stack.isEmpty()) {
+			ItemStack splitStack = stack.split(stack.getMaxStackSize());
+			player.getInventory().add(splitStack);
 
-			net.minecraft.world.entity.item.ItemEntity drop = new net.minecraft.world.entity.item.ItemEntity(
-					player.level(),
-					player.getX(),
-					player.getY(),
-					player.getZ(),
-					stack
-			);
-			drop.setNoPickUpDelay();
-			player.level().addFreshEntity(drop);
+			if (!splitStack.isEmpty()) {
+				net.minecraft.world.entity.item.ItemEntity drop = new net.minecraft.world.entity.item.ItemEntity(
+						player.level(),
+						player.getX(),
+						player.getY(),
+						player.getZ(),
+						splitStack
+				);
+				drop.setNoPickUpDelay();
+				player.level().addFreshEntity(drop);
+			}
 		}
 	}
 }

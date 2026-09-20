@@ -66,7 +66,10 @@ public class VariantMenuScreen extends Screen {
 
             Button optionButton = Button.builder(Component.empty(), button -> {
 
-                        boolean isShift = InputConstants.isKeyDown(340) || InputConstants.isKeyDown(344);;
+                        int lShift = InputConstants.getKey("key.keyboard.left.shift").getValue();
+                        int rShift = InputConstants.getKey("key.keyboard.right.shift").getValue();
+                        boolean isShift = InputConstants.isKeyDown(lShift) || InputConstants.isKeyDown(rShift);
+
                         ClientPlayNetworking.send(new MorphPayload(optionId, isShift));
                         this.onClose();
                     })
@@ -101,9 +104,9 @@ public class VariantMenuScreen extends Screen {
             } else {
                 String baseId = BuiltInRegistries.ITEM.getKey(baseBlock).toString();
 
-
-                boolean isShift = InputConstants.isKeyDown(340) || InputConstants.isKeyDown(344);
-
+                int lShift = InputConstants.getKey("key.keyboard.left.shift").getValue();
+                int rShift = InputConstants.getKey("key.keyboard.right.shift").getValue();
+                boolean isShift = InputConstants.isKeyDown(lShift) || InputConstants.isKeyDown(rShift);
                 ClientPlayNetworking.send(new MorphPayload(baseId, isShift));
                 this.onClose();
             }

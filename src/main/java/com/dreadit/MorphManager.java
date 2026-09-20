@@ -189,19 +189,35 @@ public class MorphManager {
         registerStoneFamily(Items.SULFUR_BRICKS, Items.SULFUR_BRICK_STAIRS, Items.SULFUR_BRICK_SLAB, Items.SULFUR_BRICK_WALL);
         addRecipe(Items.SULFUR_BRICKS, Items.CHISELED_SULFUR, 1, 1);
 
-        // === UNWAXED COPPER ===
-        registerCopperFamily(Items.COPPER_BLOCK.weathering().unaffected(), Items.CUT_COPPER.weathering().unaffected(), Items.CHISELED_COPPER.weathering().unaffected(), Items.COPPER_GRATE.weathering().unaffected(), Items.COPPER_BULB.weathering().unaffected(), Items.CUT_COPPER_STAIRS.weathering().unaffected(), Items.CUT_COPPER_SLAB.weathering().unaffected());
-        registerCopperFamily(Items.COPPER_BLOCK.weathering().exposed(), Items.CUT_COPPER.weathering().exposed(), Items.CHISELED_COPPER.weathering().exposed(), Items.COPPER_GRATE.weathering().exposed(), Items.COPPER_BULB.weathering().exposed(), Items.CUT_COPPER_STAIRS.weathering().exposed(), Items.CUT_COPPER_SLAB.weathering().exposed());
-        registerCopperFamily(Items.COPPER_BLOCK.weathering().weathered(), Items.CUT_COPPER.weathering().weathered(), Items.CHISELED_COPPER.weathering().weathered(), Items.COPPER_GRATE.weathering().weathered(), Items.COPPER_BULB.weathering().weathered(), Items.CUT_COPPER_STAIRS.weathering().weathered(), Items.CUT_COPPER_SLAB.weathering().weathered());
-        registerCopperFamily(Items.COPPER_BLOCK.weathering().oxidized(), Items.CUT_COPPER.weathering().oxidized(), Items.CHISELED_COPPER.weathering().oxidized(), Items.COPPER_GRATE.weathering().oxidized(), Items.COPPER_BULB.weathering().oxidized(), Items.CUT_COPPER_STAIRS.weathering().oxidized(), Items.CUT_COPPER_SLAB.weathering().oxidized());
+        // === MEGA UNWAXED COPPER FAMILY ===
+        Item unwaxedBoss = Items.COPPER_BLOCK.weathering().unaffected();
+        addRecipe(unwaxedBoss, Items.COPPER_INGOT, 1, 9); // Ingot points to the unwaxed boss
 
-        // === WAXED COPPER ===
-        registerCopperFamily(Items.COPPER_BLOCK.waxed().unaffected(), Items.CUT_COPPER.waxed().unaffected(), Items.CHISELED_COPPER.waxed().unaffected(), Items.COPPER_GRATE.waxed().unaffected(), Items.COPPER_BULB.waxed().unaffected(), Items.CUT_COPPER_STAIRS.waxed().unaffected(), Items.CUT_COPPER_SLAB.waxed().unaffected());
-        registerCopperFamily(Items.COPPER_BLOCK.waxed().exposed(), Items.CUT_COPPER.waxed().exposed(), Items.CHISELED_COPPER.waxed().exposed(), Items.COPPER_GRATE.waxed().exposed(), Items.COPPER_BULB.waxed().exposed(), Items.CUT_COPPER_STAIRS.waxed().exposed(), Items.CUT_COPPER_SLAB.waxed().exposed());
-        registerCopperFamily(Items.COPPER_BLOCK.waxed().weathered(), Items.CUT_COPPER.waxed().weathered(), Items.CHISELED_COPPER.waxed().weathered(), Items.COPPER_GRATE.waxed().weathered(), Items.COPPER_BULB.waxed().weathered(), Items.CUT_COPPER_STAIRS.waxed().weathered(), Items.CUT_COPPER_SLAB.waxed().weathered());
-        registerCopperFamily(Items.COPPER_BLOCK.waxed().oxidized(), Items.CUT_COPPER.waxed().oxidized(), Items.CHISELED_COPPER.waxed().oxidized(), Items.COPPER_GRATE.waxed().oxidized(), Items.COPPER_BULB.waxed().oxidized(), Items.CUT_COPPER_STAIRS.waxed().oxidized(), Items.CUT_COPPER_SLAB.waxed().oxidized());
+        registerCopperStage(unwaxedBoss, Items.COPPER_BLOCK.weathering().unaffected(), Items.CUT_COPPER.weathering().unaffected(), Items.CHISELED_COPPER.weathering().unaffected(), Items.COPPER_GRATE.weathering().unaffected(), Items.CUT_COPPER_STAIRS.weathering().unaffected(), Items.CUT_COPPER_SLAB.weathering().unaffected(), Items.COPPER_DOOR.weathering().unaffected(), Items.COPPER_TRAPDOOR.weathering().unaffected());
+        registerCopperStage(unwaxedBoss, Items.COPPER_BLOCK.weathering().exposed(), Items.CUT_COPPER.weathering().exposed(), Items.CHISELED_COPPER.weathering().exposed(), Items.COPPER_GRATE.weathering().exposed(), Items.CUT_COPPER_STAIRS.weathering().exposed(), Items.CUT_COPPER_SLAB.weathering().exposed(), Items.COPPER_DOOR.weathering().exposed(), Items.COPPER_TRAPDOOR.weathering().exposed());
+        registerCopperStage(unwaxedBoss, Items.COPPER_BLOCK.weathering().weathered(), Items.CUT_COPPER.weathering().weathered(), Items.CHISELED_COPPER.weathering().weathered(), Items.COPPER_GRATE.weathering().weathered(), Items.CUT_COPPER_STAIRS.weathering().weathered(), Items.CUT_COPPER_SLAB.weathering().weathered(), Items.COPPER_DOOR.weathering().weathered(), Items.COPPER_TRAPDOOR.weathering().weathered());
+        registerCopperStage(unwaxedBoss, Items.COPPER_BLOCK.weathering().oxidized(), Items.CUT_COPPER.weathering().oxidized(), Items.CHISELED_COPPER.weathering().oxidized(), Items.COPPER_GRATE.weathering().oxidized(), Items.CUT_COPPER_STAIRS.weathering().oxidized(), Items.CUT_COPPER_SLAB.weathering().oxidized(), Items.COPPER_DOOR.weathering().oxidized(), Items.COPPER_TRAPDOOR.weathering().oxidized());
 
-        // === IRON & COPPER DOORS / TRAPDOORS ===
+        // === MEGA WAXED COPPER FAMILY ===
+        Item waxedBoss = Items.COPPER_BLOCK.waxed().unaffected();
+
+        registerCopperStage(waxedBoss, Items.COPPER_BLOCK.waxed().unaffected(), Items.CUT_COPPER.waxed().unaffected(), Items.CHISELED_COPPER.waxed().unaffected(), Items.COPPER_GRATE.waxed().unaffected(), Items.CUT_COPPER_STAIRS.waxed().unaffected(), Items.CUT_COPPER_SLAB.waxed().unaffected(), Items.COPPER_DOOR.waxed().unaffected(), Items.COPPER_TRAPDOOR.waxed().unaffected());
+        registerCopperStage(waxedBoss, Items.COPPER_BLOCK.waxed().exposed(), Items.CUT_COPPER.waxed().exposed(), Items.CHISELED_COPPER.waxed().exposed(), Items.COPPER_GRATE.waxed().exposed(), Items.CUT_COPPER_STAIRS.waxed().exposed(), Items.CUT_COPPER_SLAB.waxed().exposed(), Items.COPPER_DOOR.waxed().exposed(), Items.COPPER_TRAPDOOR.waxed().exposed());
+        registerCopperStage(waxedBoss, Items.COPPER_BLOCK.waxed().weathered(), Items.CUT_COPPER.waxed().weathered(), Items.CHISELED_COPPER.waxed().weathered(), Items.COPPER_GRATE.waxed().weathered(), Items.CUT_COPPER_STAIRS.waxed().weathered(), Items.CUT_COPPER_SLAB.waxed().weathered(), Items.COPPER_DOOR.waxed().weathered(), Items.COPPER_TRAPDOOR.waxed().weathered());
+        registerCopperStage(waxedBoss, Items.COPPER_BLOCK.waxed().oxidized(), Items.CUT_COPPER.waxed().oxidized(), Items.CHISELED_COPPER.waxed().oxidized(), Items.COPPER_GRATE.waxed().oxidized(), Items.CUT_COPPER_STAIRS.waxed().oxidized(), Items.CUT_COPPER_SLAB.waxed().oxidized(), Items.COPPER_DOOR.waxed().oxidized(), Items.COPPER_TRAPDOOR.waxed().oxidized());
+
+        // === COPPER BULB FAMILIES (Protects Blaze Rods) ===
+        Item unwaxedBulbBoss = Items.COPPER_BULB.weathering().unaffected();
+        addRecipe(unwaxedBulbBoss, Items.COPPER_BULB.weathering().exposed(), 1, 1);
+        addRecipe(unwaxedBulbBoss, Items.COPPER_BULB.weathering().weathered(), 1, 1);
+        addRecipe(unwaxedBulbBoss, Items.COPPER_BULB.weathering().oxidized(), 1, 1);
+
+        Item waxedBulbBoss = Items.COPPER_BULB.waxed().unaffected();
+        addRecipe(waxedBulbBoss, Items.COPPER_BULB.waxed().exposed(), 1, 1);
+        addRecipe(waxedBulbBoss, Items.COPPER_BULB.waxed().weathered(), 1, 1);
+        addRecipe(waxedBulbBoss, Items.COPPER_BULB.waxed().oxidized(), 1, 1);
+
+        // === IRON DOORS (Standalone) ===
         registerMetalFamily(Items.IRON_INGOT, Items.IRON_DOOR, Items.IRON_TRAPDOOR);
         addRecipe(Items.IRON_INGOT, Items.IRON_BARS, 3, 8);
         addRecipe(Items.IRON_INGOT, Items.HEAVY_WEIGHTED_PRESSURE_PLATE, 2, 1);
@@ -340,13 +356,19 @@ public class MorphManager {
         if (slab != null) addRecipe(powder, slab, 1, 2);
     }
 
-    private static void registerCopperFamily(Item copperBlock, Item cut, Item chiseled, Item grate, Item bulb, Item stairs, Item slab) {
-        if (cut != null) addRecipe(copperBlock, cut, 1, 4);
-        if (chiseled != null) addRecipe(copperBlock, chiseled, 1, 4);
-        if (grate != null) addRecipe(copperBlock, grate, 1, 4);
-        if (bulb != null) addRecipe(copperBlock, bulb, 3, 4);
-        if (stairs != null) addRecipe(copperBlock, stairs, 1, 4);
-        if (slab != null) addRecipe(copperBlock, slab, 1, 8);
+    private static void registerCopperStage(Item masterBoss, Item stageBlock, Item cut, Item chiseled, Item grate, Item stairs, Item slab, Item door, Item trapdoor) {
+        // If the stage block isn't the boss itself, allow morphing between stages (1:1)
+        if (masterBoss != stageBlock) addRecipe(masterBoss, stageBlock, 1, 1);
+
+        if (cut != null) addRecipe(masterBoss, cut, 1, 4);
+        if (chiseled != null) addRecipe(masterBoss, chiseled, 1, 4);
+        if (grate != null) addRecipe(masterBoss, grate, 1, 4);
+        if (stairs != null) addRecipe(masterBoss, stairs, 1, 4);
+        if (slab != null) addRecipe(masterBoss, slab, 1, 8);
+
+        // Copper Doors use Blocks in vanilla, not ingots! (6 blocks = 3 doors -> 2 blocks per door)
+        if (door != null) addRecipe(masterBoss, door, 2, 1);
+        if (trapdoor != null) addRecipe(masterBoss, trapdoor, 3, 1);
     }
 
     private static void registerMetalFamily(Item ingot, Item door, Item trapdoor) {

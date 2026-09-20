@@ -198,6 +198,16 @@ public class MorphManager {
         registerCopperStage(unwaxedBoss, Items.COPPER_BLOCK.weathering().weathered(), Items.CUT_COPPER.weathering().weathered(), Items.CHISELED_COPPER.weathering().weathered(), Items.COPPER_GRATE.weathering().weathered(), Items.CUT_COPPER_STAIRS.weathering().weathered(), Items.CUT_COPPER_SLAB.weathering().weathered(), Items.COPPER_DOOR.weathering().weathered(), Items.COPPER_TRAPDOOR.weathering().weathered());
         registerCopperStage(unwaxedBoss, Items.COPPER_BLOCK.weathering().oxidized(), Items.CUT_COPPER.weathering().oxidized(), Items.CHISELED_COPPER.weathering().oxidized(), Items.COPPER_GRATE.weathering().oxidized(), Items.CUT_COPPER_STAIRS.weathering().oxidized(), Items.CUT_COPPER_SLAB.weathering().oxidized(), Items.COPPER_DOOR.weathering().oxidized(), Items.COPPER_TRAPDOOR.weathering().oxidized());
 
+        addRecipe(unwaxedBoss, Items.COPPER_BARS.weathering().unaffected(), 1, 24);
+        addRecipe(unwaxedBoss, Items.COPPER_BARS.weathering().exposed(), 1, 24);
+        addRecipe(unwaxedBoss, Items.COPPER_BARS.weathering().weathered(), 1, 24);
+        addRecipe(unwaxedBoss, Items.COPPER_BARS.weathering().oxidized(), 1, 24);
+
+        addRecipe(unwaxedBoss, Items.COPPER_CHAIN.weathering().unaffected(), 1, 9);
+        addRecipe(unwaxedBoss, Items.COPPER_CHAIN.weathering().exposed(), 1, 9);
+        addRecipe(unwaxedBoss, Items.COPPER_CHAIN.weathering().weathered(), 1, 9);
+        addRecipe(unwaxedBoss, Items.COPPER_CHAIN.weathering().oxidized(), 1, 9);
+
         // === MEGA WAXED COPPER FAMILY ===
         Item waxedBoss = Items.COPPER_BLOCK.waxed().unaffected();
 
@@ -205,6 +215,16 @@ public class MorphManager {
         registerCopperStage(waxedBoss, Items.COPPER_BLOCK.waxed().exposed(), Items.CUT_COPPER.waxed().exposed(), Items.CHISELED_COPPER.waxed().exposed(), Items.COPPER_GRATE.waxed().exposed(), Items.CUT_COPPER_STAIRS.waxed().exposed(), Items.CUT_COPPER_SLAB.waxed().exposed(), Items.COPPER_DOOR.waxed().exposed(), Items.COPPER_TRAPDOOR.waxed().exposed());
         registerCopperStage(waxedBoss, Items.COPPER_BLOCK.waxed().weathered(), Items.CUT_COPPER.waxed().weathered(), Items.CHISELED_COPPER.waxed().weathered(), Items.COPPER_GRATE.waxed().weathered(), Items.CUT_COPPER_STAIRS.waxed().weathered(), Items.CUT_COPPER_SLAB.waxed().weathered(), Items.COPPER_DOOR.waxed().weathered(), Items.COPPER_TRAPDOOR.waxed().weathered());
         registerCopperStage(waxedBoss, Items.COPPER_BLOCK.waxed().oxidized(), Items.CUT_COPPER.waxed().oxidized(), Items.CHISELED_COPPER.waxed().oxidized(), Items.COPPER_GRATE.waxed().oxidized(), Items.CUT_COPPER_STAIRS.waxed().oxidized(), Items.CUT_COPPER_SLAB.waxed().oxidized(), Items.COPPER_DOOR.waxed().oxidized(), Items.COPPER_TRAPDOOR.waxed().oxidized());
+
+        addRecipe(waxedBoss, Items.COPPER_BARS.waxed().unaffected(), 1, 24);
+        addRecipe(waxedBoss, Items.COPPER_BARS.waxed().exposed(), 1, 24);
+        addRecipe(waxedBoss, Items.COPPER_BARS.waxed().weathered(), 1, 24);
+        addRecipe(waxedBoss, Items.COPPER_BARS.waxed().oxidized(), 1, 24);
+
+        addRecipe(waxedBoss, Items.COPPER_CHAIN.waxed().unaffected(), 1, 9);
+        addRecipe(waxedBoss, Items.COPPER_CHAIN.waxed().exposed(), 1, 9);
+        addRecipe(waxedBoss, Items.COPPER_CHAIN.waxed().weathered(), 1, 9);
+        addRecipe(waxedBoss, Items.COPPER_CHAIN.waxed().oxidized(), 1, 9);
 
         // === COPPER BULB FAMILIES (Protects Blaze Rods) ===
         Item unwaxedBulbBoss = Items.COPPER_BULB.weathering().unaffected();
@@ -217,9 +237,11 @@ public class MorphManager {
         addRecipe(waxedBulbBoss, Items.COPPER_BULB.waxed().weathered(), 1, 1);
         addRecipe(waxedBulbBoss, Items.COPPER_BULB.waxed().oxidized(), 1, 1);
 
-        // === IRON DOORS (Standalone) ===
+        // === IRON MEGA FAMILY ===
+        addRecipe(Items.IRON_INGOT, Items.IRON_BLOCK, 9, 1); // 9 Ingots = 1 Block
         registerMetalFamily(Items.IRON_INGOT, Items.IRON_DOOR, Items.IRON_TRAPDOOR);
         addRecipe(Items.IRON_INGOT, Items.IRON_BARS, 3, 8);
+        addRecipe(Items.IRON_INGOT, Items.IRON_CHAIN, 1, 1); // Clean 1:1 ratio
         addRecipe(Items.IRON_INGOT, Items.HEAVY_WEIGHTED_PRESSURE_PLATE, 2, 1);
 
         registerMetalFamily(Items.COPPER_INGOT, Items.COPPER_DOOR.weathering().unaffected(), Items.COPPER_TRAPDOOR.weathering().unaffected());
@@ -288,7 +310,6 @@ public class MorphManager {
         addRecipe(Items.HONEYCOMB_BLOCK, Items.HONEYCOMB, 1, 4);
 
         // === MINERALS & SLIME (1:9) ===
-        addRecipe(Items.IRON_BLOCK, Items.IRON_INGOT, 1, 9);
         addRecipe(Items.RAW_IRON_BLOCK, Items.RAW_IRON, 1, 9);
         addRecipe(Items.GOLD_BLOCK, Items.GOLD_INGOT, 1, 9);
         addRecipe(Items.RAW_GOLD_BLOCK, Items.RAW_GOLD, 1, 9);

@@ -33,8 +33,16 @@ public class VariantMenuScreen extends Screen {
 
         List<Item> allOptions = MorphManager.getFamily(baseBlock);
         allOptions.remove(heldType);
+
+        // Strip out any item that costs more than a standard 64 stack
+        allOptions.removeIf(option -> MorphManager.calculateCost(heldType, option) > 64);
+
         if (allOptions.isEmpty()) return;
 
+        if (allOptions.isEmpty()) {
+            this.onClose();
+            return;
+        }
         // --- GRID MATH ---
         int buttonSize = 24;
         int columns = Math.min(allOptions.size(), 7);
@@ -57,7 +65,12 @@ public class VariantMenuScreen extends Screen {
             Item option = allOptions.get(i);
             String optionId = BuiltInRegistries.ITEM.getKey(option).toString();
             ItemStack optionStack = new ItemStack(option);
+
+            int requiredAmount = MorphManager.calculateCost(heldType, option);
+            boolean canAfford = heldItem.getCount() >= requiredAmount;
+
             String optionName = optionStack.getHoverName().getString();
+            Component tooltipText = Component.literal(optionName + " (Costs: " + requiredAmount + ")");
 
             int col = i % columns;
             int row = i / columns;
@@ -65,7 +78,6 @@ public class VariantMenuScreen extends Screen {
             int y = startY + (row * buttonSize);
 
             Button optionButton = Button.builder(Component.empty(), button -> {
-
                         int lShift = InputConstants.getKey("key.keyboard.left.shift").getValue();
                         int rShift = InputConstants.getKey("key.keyboard.right.shift").getValue();
                         boolean isShift = InputConstants.isKeyDown(lShift) || InputConstants.isKeyDown(rShift);
@@ -74,13 +86,22 @@ public class VariantMenuScreen extends Screen {
                         this.onClose();
                     })
                     .bounds(x, y, buttonSize, buttonSize)
-                    .tooltip(Tooltip.create(Component.literal(optionName)))
+                    .tooltip(Tooltip.create(tooltipText))
                     .build();
+
+            optionButton.active = canAfford;
 
             this.addRenderableWidget(optionButton);
 
             this.addRenderableOnly((guiGraphics, mouseX, mouseY, partialTick) -> {
-                guiGraphics.fakeItem(optionStack, optionButton.getX() + 4, optionButton.getY() + 4);
+                int iconX = optionButton.getX() + 4;
+                int iconY = optionButton.getY() + 4;
+
+                guiGraphics.fakeItem(optionStack, iconX, iconY);
+
+                if (!canAfford) {
+                    guiGraphics.fill(iconX, iconY, iconX + 16, iconY + 16, 0x80FF0000);
+                }
             });
         }
     }

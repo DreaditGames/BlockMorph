@@ -20,6 +20,30 @@ public class MorphManager {
         }
     }
 
+    public static int calculateCost(Item heldItem, Item targetItem) {
+        if (heldItem == targetItem) return 1;
+
+        Item boss = getBaseBlock(heldItem);
+        MorphDef heldDef = getDef(boss, heldItem);
+        MorphDef targetDef = getDef(boss, targetItem);
+
+        if (heldItem == boss && targetDef != null) {
+            return (int) Math.ceil((double) targetDef.baseCost / targetDef.variantYield);
+        }
+
+        if (targetItem == boss && heldDef != null) {
+            return (int) Math.ceil((double) heldDef.variantYield / heldDef.baseCost);
+        }
+
+        if (heldDef != null && targetDef != null) {
+            double heldValueInBosses = (double) heldDef.baseCost / heldDef.variantYield;
+            double targetCostInBosses = (double) targetDef.baseCost / targetDef.variantYield;
+            return (int) Math.ceil(targetCostInBosses / heldValueInBosses);
+        }
+
+        return 999; // Fallback to prevent free items if definitions are missing
+    }
+
     public static final List<MorphDef> RECIPES = new ArrayList<>();
 
     static {
@@ -156,6 +180,8 @@ public class MorphManager {
         registerStoneFamily(Items.NETHER_BRICKS, Items.NETHER_BRICK_STAIRS, Items.NETHER_BRICK_SLAB, Items.NETHER_BRICK_WALL);
         addRecipe(Items.NETHER_BRICKS, Items.NETHER_BRICK_FENCE, 1, 1);
         addRecipe(Items.NETHER_BRICKS, Items.CHISELED_NETHER_BRICKS, 1, 1);
+        addRecipe(Items.BASALT, Items.POLISHED_BASALT, 1, 1);
+        addRecipe(Items.BASALT, Items.SMOOTH_BASALT, 1, 1);
 
         registerStoneFamily(Items.RED_NETHER_BRICKS, Items.RED_NETHER_BRICK_STAIRS, Items.RED_NETHER_BRICK_SLAB, Items.RED_NETHER_BRICK_WALL);
         registerStoneFamily(Items.END_STONE_BRICKS, Items.END_STONE_BRICK_STAIRS, Items.END_STONE_BRICK_SLAB, Items.END_STONE_BRICK_WALL);
@@ -191,7 +217,8 @@ public class MorphManager {
 
         // === MEGA UNWAXED COPPER FAMILY ===
         Item unwaxedBoss = Items.COPPER_BLOCK.weathering().unaffected();
-        addRecipe(unwaxedBoss, Items.COPPER_INGOT, 1, 9); // Ingot points to the unwaxed boss
+        addRecipe(unwaxedBoss, Items.COPPER_INGOT, 1, 9);
+
 
         registerCopperStage(unwaxedBoss, Items.COPPER_BLOCK.weathering().unaffected(), Items.CUT_COPPER.weathering().unaffected(), Items.CHISELED_COPPER.weathering().unaffected(), Items.COPPER_GRATE.weathering().unaffected(), Items.CUT_COPPER_STAIRS.weathering().unaffected(), Items.CUT_COPPER_SLAB.weathering().unaffected(), Items.COPPER_DOOR.weathering().unaffected(), Items.COPPER_TRAPDOOR.weathering().unaffected());
         registerCopperStage(unwaxedBoss, Items.COPPER_BLOCK.weathering().exposed(), Items.CUT_COPPER.weathering().exposed(), Items.CHISELED_COPPER.weathering().exposed(), Items.COPPER_GRATE.weathering().exposed(), Items.CUT_COPPER_STAIRS.weathering().exposed(), Items.CUT_COPPER_SLAB.weathering().exposed(), Items.COPPER_DOOR.weathering().exposed(), Items.COPPER_TRAPDOOR.weathering().exposed());
@@ -207,6 +234,11 @@ public class MorphManager {
         addRecipe(unwaxedBoss, Items.COPPER_CHAIN.weathering().exposed(), 1, 9);
         addRecipe(unwaxedBoss, Items.COPPER_CHAIN.weathering().weathered(), 1, 9);
         addRecipe(unwaxedBoss, Items.COPPER_CHAIN.weathering().oxidized(), 1, 9);
+
+        // === GOLD MEGA FAMILY ===
+        addRecipe(Items.GOLD_INGOT, Items.GOLD_BLOCK, 9, 1); // 9 Ingots = 1 Block
+        addRecipe(Items.GOLD_INGOT, Items.GOLD_NUGGET, 1, 9);
+        addRecipe(Items.GOLD_INGOT, Items.LIGHT_WEIGHTED_PRESSURE_PLATE, 2, 1);
 
         // === MEGA WAXED COPPER FAMILY ===
         Item waxedBoss = Items.COPPER_BLOCK.waxed().unaffected();
@@ -243,6 +275,7 @@ public class MorphManager {
         addRecipe(Items.IRON_INGOT, Items.IRON_BARS, 3, 8);
         addRecipe(Items.IRON_INGOT, Items.IRON_CHAIN, 1, 1); // Clean 1:1 ratio
         addRecipe(Items.IRON_INGOT, Items.HEAVY_WEIGHTED_PRESSURE_PLATE, 2, 1);
+        addRecipe(Items.IRON_INGOT, Items.IRON_NUGGET, 1, 9);
 
         registerMetalFamily(Items.COPPER_INGOT, Items.COPPER_DOOR.weathering().unaffected(), Items.COPPER_TRAPDOOR.weathering().unaffected());
         registerMetalFamily(Items.COPPER_INGOT, Items.COPPER_DOOR.weathering().exposed(), Items.COPPER_TRAPDOOR.weathering().exposed());
@@ -254,22 +287,22 @@ public class MorphManager {
         registerMetalFamily(Items.COPPER_INGOT, Items.COPPER_DOOR.waxed().oxidized(), Items.COPPER_TRAPDOOR.waxed().oxidized());
 
         // === ALL COLORS ===
-        registerColorFamily(Items.WOOL.white(), Items.CARPET.white(), Items.WOOL_STAIRS.white(), Items.WOOL_SLAB.white(), Items.STAINED_GLASS.white(), Items.STAINED_GLASS_PANE.white());
-        registerColorFamily(Items.WOOL.orange(), Items.CARPET.orange(), Items.WOOL_STAIRS.orange(), Items.WOOL_SLAB.orange(), Items.STAINED_GLASS.orange(), Items.STAINED_GLASS_PANE.orange());
-        registerColorFamily(Items.WOOL.magenta(), Items.CARPET.magenta(), Items.WOOL_STAIRS.magenta(), Items.WOOL_SLAB.magenta(), Items.STAINED_GLASS.magenta(), Items.STAINED_GLASS_PANE.magenta());
-        registerColorFamily(Items.WOOL.lightBlue(), Items.CARPET.lightBlue(), Items.WOOL_STAIRS.lightBlue(), Items.WOOL_SLAB.lightBlue(), Items.STAINED_GLASS.lightBlue(), Items.STAINED_GLASS_PANE.lightBlue());
-        registerColorFamily(Items.WOOL.yellow(), Items.CARPET.yellow(), Items.WOOL_STAIRS.yellow(), Items.WOOL_SLAB.yellow(), Items.STAINED_GLASS.yellow(), Items.STAINED_GLASS_PANE.yellow());
-        registerColorFamily(Items.WOOL.lime(), Items.CARPET.lime(), Items.WOOL_STAIRS.lime(), Items.WOOL_SLAB.lime(), Items.STAINED_GLASS.lime(), Items.STAINED_GLASS_PANE.lime());
-        registerColorFamily(Items.WOOL.pink(), Items.CARPET.pink(), Items.WOOL_STAIRS.pink(), Items.WOOL_SLAB.pink(), Items.STAINED_GLASS.pink(), Items.STAINED_GLASS_PANE.pink());
-        registerColorFamily(Items.WOOL.gray(), Items.CARPET.gray(), Items.WOOL_STAIRS.gray(), Items.WOOL_SLAB.gray(), Items.STAINED_GLASS.gray(), Items.STAINED_GLASS_PANE.gray());
-        registerColorFamily(Items.WOOL.lightGray(), Items.CARPET.lightGray(), Items.WOOL_STAIRS.lightGray(), Items.WOOL_SLAB.lightGray(), Items.STAINED_GLASS.lightGray(), Items.STAINED_GLASS_PANE.lightGray());
-        registerColorFamily(Items.WOOL.cyan(), Items.CARPET.cyan(), Items.WOOL_STAIRS.cyan(), Items.WOOL_SLAB.cyan(), Items.STAINED_GLASS.cyan(), Items.STAINED_GLASS_PANE.cyan());
-        registerColorFamily(Items.WOOL.purple(), Items.CARPET.purple(), Items.WOOL_STAIRS.purple(), Items.WOOL_SLAB.purple(), Items.STAINED_GLASS.purple(), Items.STAINED_GLASS_PANE.purple());
-        registerColorFamily(Items.WOOL.blue(), Items.CARPET.blue(), Items.WOOL_STAIRS.blue(), Items.WOOL_SLAB.blue(), Items.STAINED_GLASS.blue(), Items.STAINED_GLASS_PANE.blue());
-        registerColorFamily(Items.WOOL.brown(), Items.CARPET.brown(), Items.WOOL_STAIRS.brown(), Items.WOOL_SLAB.brown(), Items.STAINED_GLASS.brown(), Items.STAINED_GLASS_PANE.brown());
-        registerColorFamily(Items.WOOL.green(), Items.CARPET.green(), Items.WOOL_STAIRS.green(), Items.WOOL_SLAB.green(), Items.STAINED_GLASS.green(), Items.STAINED_GLASS_PANE.green());
-        registerColorFamily(Items.WOOL.red(), Items.CARPET.red(), Items.WOOL_STAIRS.red(), Items.WOOL_SLAB.red(), Items.STAINED_GLASS.red(), Items.STAINED_GLASS_PANE.red());
-        registerColorFamily(Items.WOOL.black(), Items.CARPET.black(), Items.WOOL_STAIRS.black(), Items.WOOL_SLAB.black(), Items.STAINED_GLASS.black(), Items.STAINED_GLASS_PANE.black());
+        registerColorFamily(Items.WOOL.white(), Items.CARPET.white(), Items.CUSHION.white(), Items.WOOL_STAIRS.white(), Items.WOOL_SLAB.white(), Items.STAINED_GLASS.white(), Items.STAINED_GLASS_PANE.white());
+        registerColorFamily(Items.WOOL.orange(), Items.CARPET.orange(), Items.CUSHION.orange(), Items.WOOL_STAIRS.orange(), Items.WOOL_SLAB.orange(), Items.STAINED_GLASS.orange(), Items.STAINED_GLASS_PANE.orange());
+        registerColorFamily(Items.WOOL.magenta(), Items.CARPET.magenta(), Items.CUSHION.magenta(), Items.WOOL_STAIRS.magenta(), Items.WOOL_SLAB.magenta(), Items.STAINED_GLASS.magenta(), Items.STAINED_GLASS_PANE.magenta());
+        registerColorFamily(Items.WOOL.lightBlue(), Items.CARPET.lightBlue(), Items.CUSHION.lightBlue(), Items.WOOL_STAIRS.lightBlue(), Items.WOOL_SLAB.lightBlue(), Items.STAINED_GLASS.lightBlue(), Items.STAINED_GLASS_PANE.lightBlue());
+        registerColorFamily(Items.WOOL.yellow(), Items.CARPET.yellow(), Items.CUSHION.yellow(), Items.WOOL_STAIRS.yellow(), Items.WOOL_SLAB.yellow(), Items.STAINED_GLASS.yellow(), Items.STAINED_GLASS_PANE.yellow());
+        registerColorFamily(Items.WOOL.lime(), Items.CARPET.lime(), Items.CUSHION.lime(), Items.WOOL_STAIRS.lime(), Items.WOOL_SLAB.lime(), Items.STAINED_GLASS.lime(), Items.STAINED_GLASS_PANE.lime());
+        registerColorFamily(Items.WOOL.pink(), Items.CARPET.pink(), Items.CUSHION.pink(), Items.WOOL_STAIRS.pink(), Items.WOOL_SLAB.pink(), Items.STAINED_GLASS.pink(), Items.STAINED_GLASS_PANE.pink());
+        registerColorFamily(Items.WOOL.gray(), Items.CARPET.gray(), Items.CUSHION.gray(), Items.WOOL_STAIRS.gray(), Items.WOOL_SLAB.gray(), Items.STAINED_GLASS.gray(), Items.STAINED_GLASS_PANE.gray());
+        registerColorFamily(Items.WOOL.lightGray(), Items.CARPET.lightGray(), Items.CUSHION.lightGray(), Items.WOOL_STAIRS.lightGray(), Items.WOOL_SLAB.lightGray(), Items.STAINED_GLASS.lightGray(), Items.STAINED_GLASS_PANE.lightGray());
+        registerColorFamily(Items.WOOL.cyan(), Items.CARPET.cyan(), Items.CUSHION.cyan(), Items.WOOL_STAIRS.cyan(), Items.WOOL_SLAB.cyan(), Items.STAINED_GLASS.cyan(), Items.STAINED_GLASS_PANE.cyan());
+        registerColorFamily(Items.WOOL.purple(), Items.CARPET.purple(), Items.CUSHION.purple(), Items.WOOL_STAIRS.purple(), Items.WOOL_SLAB.purple(), Items.STAINED_GLASS.purple(), Items.STAINED_GLASS_PANE.purple());
+        registerColorFamily(Items.WOOL.blue(), Items.CARPET.blue(), Items.CUSHION.blue(), Items.WOOL_STAIRS.blue(), Items.WOOL_SLAB.blue(), Items.STAINED_GLASS.blue(), Items.STAINED_GLASS_PANE.blue());
+        registerColorFamily(Items.WOOL.brown(), Items.CARPET.brown(), Items.CUSHION.brown(), Items.WOOL_STAIRS.brown(), Items.WOOL_SLAB.brown(), Items.STAINED_GLASS.brown(), Items.STAINED_GLASS_PANE.brown());
+        registerColorFamily(Items.WOOL.green(), Items.CARPET.green(), Items.CUSHION.green(), Items.WOOL_STAIRS.green(), Items.WOOL_SLAB.green(), Items.STAINED_GLASS.green(), Items.STAINED_GLASS_PANE.green());
+        registerColorFamily(Items.WOOL.red(), Items.CARPET.red(), Items.CUSHION.red(), Items.WOOL_STAIRS.red(), Items.WOOL_SLAB.red(), Items.STAINED_GLASS.red(), Items.STAINED_GLASS_PANE.red());
+        registerColorFamily(Items.WOOL.black(), Items.CARPET.black(), Items.CUSHION.black(), Items.WOOL_STAIRS.black(), Items.WOOL_SLAB.black(), Items.STAINED_GLASS.black(), Items.STAINED_GLASS_PANE.black());
 
         // === CONCRETE ===
         registerConcreteFamily(Items.CONCRETE_POWDER.white(), Items.CONCRETE.white(), Items.CONCRETE_STAIRS.white(), Items.CONCRETE_SLAB.white());
@@ -288,6 +321,24 @@ public class MorphManager {
         registerConcreteFamily(Items.CONCRETE_POWDER.green(), Items.CONCRETE.green(), Items.CONCRETE_STAIRS.green(), Items.CONCRETE_SLAB.green());
         registerConcreteFamily(Items.CONCRETE_POWDER.red(), Items.CONCRETE.red(), Items.CONCRETE_STAIRS.red(), Items.CONCRETE_SLAB.red());
         registerConcreteFamily(Items.CONCRETE_POWDER.black(), Items.CONCRETE.black(), Items.CONCRETE_STAIRS.black(), Items.CONCRETE_SLAB.black());
+
+        // === TERRACOTTA (Stained to Glazed 1:1) ===
+        addRecipe(Items.DYED_TERRACOTTA.white(), Items.GLAZED_TERRACOTTA.white(), 1, 1);
+        addRecipe(Items.DYED_TERRACOTTA.orange(), Items.GLAZED_TERRACOTTA.orange(), 1, 1);
+        addRecipe(Items.DYED_TERRACOTTA.magenta(), Items.GLAZED_TERRACOTTA.magenta(), 1, 1);
+        addRecipe(Items.DYED_TERRACOTTA.lightBlue(), Items.GLAZED_TERRACOTTA.lightBlue(), 1, 1);
+        addRecipe(Items.DYED_TERRACOTTA.yellow(), Items.GLAZED_TERRACOTTA.yellow(), 1, 1);
+        addRecipe(Items.DYED_TERRACOTTA.lime(), Items.GLAZED_TERRACOTTA.lime(), 1, 1);
+        addRecipe(Items.DYED_TERRACOTTA.pink(), Items.GLAZED_TERRACOTTA.pink(), 1, 1);
+        addRecipe(Items.DYED_TERRACOTTA.gray(), Items.GLAZED_TERRACOTTA.gray(), 1, 1);
+        addRecipe(Items.DYED_TERRACOTTA.lightGray(), Items.GLAZED_TERRACOTTA.lightGray(), 1, 1);
+        addRecipe(Items.DYED_TERRACOTTA.cyan(), Items.GLAZED_TERRACOTTA.cyan(), 1, 1);
+        addRecipe(Items.DYED_TERRACOTTA.purple(), Items.GLAZED_TERRACOTTA.purple(), 1, 1);
+        addRecipe(Items.DYED_TERRACOTTA.blue(), Items.GLAZED_TERRACOTTA.blue(), 1, 1);
+        addRecipe(Items.DYED_TERRACOTTA.brown(), Items.GLAZED_TERRACOTTA.brown(), 1, 1);
+        addRecipe(Items.DYED_TERRACOTTA.green(), Items.GLAZED_TERRACOTTA.green(), 1, 1);
+        addRecipe(Items.DYED_TERRACOTTA.red(), Items.GLAZED_TERRACOTTA.red(), 1, 1);
+        addRecipe(Items.DYED_TERRACOTTA.black(), Items.GLAZED_TERRACOTTA.black(), 1, 1);
 
         // === CRACKED VARIANTS (1:1 Smelting Bypass) ===
         addRecipe(Items.STONE_BRICKS, Items.CRACKED_STONE_BRICKS, 1, 1);
@@ -308,10 +359,11 @@ public class MorphManager {
         addRecipe(Items.HAY_BLOCK, Items.WHEAT, 1, 9);
         addRecipe(Items.AMETHYST_BLOCK, Items.AMETHYST_SHARD, 1, 4);
         addRecipe(Items.HONEYCOMB_BLOCK, Items.HONEYCOMB, 1, 4);
+        addRecipe(Items.PUMPKIN, Items.CARVED_PUMPKIN, 1, 1);
+        addRecipe(Items.PUMPKIN, Items.PUMPKIN_SEEDS, 1, 4);
 
         // === MINERALS & SLIME (1:9) ===
         addRecipe(Items.RAW_IRON_BLOCK, Items.RAW_IRON, 1, 9);
-        addRecipe(Items.GOLD_BLOCK, Items.GOLD_INGOT, 1, 9);
         addRecipe(Items.RAW_GOLD_BLOCK, Items.RAW_GOLD, 1, 9);
         addRecipe(Items.DIAMOND_BLOCK, Items.DIAMOND, 1, 9);
         addRecipe(Items.EMERALD_BLOCK, Items.EMERALD, 1, 9);
@@ -364,8 +416,9 @@ public class MorphManager {
         if (wall != null) addRecipe(base, wall, 1, 1);
     }
 
-    private static void registerColorFamily(Item wool, Item carpet, Item woolStairs, Item woolSlab, Item glass, Item pane) {
+    private static void registerColorFamily(Item wool, Item carpet, Item cushion, Item woolStairs, Item woolSlab, Item glass, Item pane) {
         if (carpet != null) addRecipe(wool, carpet, 2, 3);
+        if (cushion != null) addRecipe(wool, cushion, 3, 2);
         if (woolStairs != null) addRecipe(wool, woolStairs, 1, 1);
         if (woolSlab != null) addRecipe(wool, woolSlab, 1, 2);
         if (pane != null) addRecipe(glass, pane, 3, 8);
